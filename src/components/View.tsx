@@ -23,11 +23,40 @@ function View() {
     const nfts = Array(11).fill(0)
       .map(() => Array(17).fill(0).map(() => ({ stringData: '🐶' })));
     setNfts(nfts);
-  });
+
+    function handleKeyDown(event: KeyboardEvent) {
+      switch (event.key) {
+        case 'ArrowUp':
+        case 'w':
+          moveUp();
+          break;
+        case 'ArrowDown':
+        case 's':
+          moveDown();
+          break;
+        case 'ArrowLeft':
+        case 'a':
+          moveLeft();
+          break;
+        case 'ArrowRight':
+        case 'd':
+          moveRight();
+          break;
+        default:
+          break;
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [moveUp, moveDown, moveLeft, moveRight]);
 
   return <div className={style.com}>
     {nfts.map((row) => <div className={style.row}>
       {row.map((nft) => <Emoji { ...nft } />)}
     </div>)}
+    <span>{currentArea().join(',')}</span>
   </div>;
 }
