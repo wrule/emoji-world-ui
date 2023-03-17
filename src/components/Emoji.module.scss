@@ -1,0 +1,12 @@
+.com {
+  box-sizing: border-box;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  border: solid 0.5px rgba(0, 0, 0, 0.1);
+  font-size: 20px;
+  overflow: hidden;
+  cursor: pointer;
+}
