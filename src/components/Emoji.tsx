@@ -2,6 +2,11 @@ import React from 'react';
 import style from './Emoji.module.scss';
 
 export
-function Emoji(props: { emoji?: string }) {
-  return <div className={style.com}>{(props.emoji || '')}</div>;
+interface INFT {
+  stringData?: string;
+}
+
+export
+function Emoji(props: INFT) {
+  return <div className={style.com}>{(props.stringData || '')}</div>;
 }
