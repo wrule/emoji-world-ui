@@ -31,7 +31,10 @@ function Connector() {
     return <Popover
       placement="bottom"
       title="Connected address"
-      content={<span>{address}</span>}>
+      content={<div>
+        <div>{address}</div>
+        <div><Balance address={address} /></div>
+      </div>}>
       <Button onClick={() => disconnect()}>Disconnect</Button>
     </Popover>;
   }

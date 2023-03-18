@@ -3,12 +3,14 @@ import ReactDOM from 'react-dom/client';
 import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { WagmiConfig, createClient } from 'wagmi';
-import { getDefaultProvider } from 'ethers';
+import { WagmiConfig, createClient, configureChains, mainnet, goerli } from 'wagmi';
+import { publicProvider } from 'wagmi/providers/public';
 
+const { provider } = configureChains([goerli], [publicProvider()]);
+ 
 const client = createClient({
   autoConnect: true,
-  provider: getDefaultProvider(),
+  provider,
 });
 
 const root = ReactDOM.createRoot(
