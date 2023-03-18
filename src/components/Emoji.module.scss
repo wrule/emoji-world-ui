@@ -1,12 +1,19 @@
 .com {
-  box-sizing: border-box;
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 20px;
-  height: 20px;
+  width: 32px;
+  height: 32px;
+  font-size: 31px;
+  box-sizing: border-box;
   border: solid 0.5px rgba(0, 0, 0, 0.2);
-  font-size: 20px;
   overflow: hidden;
+  vertical-align: middle;
+  background-color: #C5E1A5;
   cursor: pointer;
+  transition: background-color 0.2s;
+  &:hover {
+    background-color: #E0F7FA;
+    background-image: linear-gradient(to bottom right, #B2EBF2, #E0F7FA);
+  }
 }
