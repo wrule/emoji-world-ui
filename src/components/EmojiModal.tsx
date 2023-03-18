@@ -1,7 +1,8 @@
 import React from 'react';
-import { useContractRead } from 'wagmi';
+import { useContractRead, usePrepareContractWrite, useContractWrite } from 'wagmi';
 import { Modal, Form, Input, Row, Col, Spin } from 'antd';
 import { Emoji } from './Emoji';
+import { ethers } from 'ethers';
 import EmojiInterface from '../contract/Emoji/interface.json';
 
 const EmojiContract = {
@@ -37,7 +38,7 @@ function EmojiModal(props: {
   coord: [number, number] | null | undefined,
   onCancel?: () => void,
 }) {
-  const [form] = Form.useForm();
+  const [form] = Form.useForm<NFT>();
 
   const getNFTByCoordinatesResult = useContractRead({
     address: EmojiContract.address as any,
@@ -48,14 +49,29 @@ function EmojiModal(props: {
 
   const formDisabled = () => DataToNFT(getNFTByCoordinatesResult.data).tokenId !== '0';
 
-  if (getNFTByCoordinatesResult.isSuccess)
+  const { config } = usePrepareContractWrite({
+    address: EmojiContract.address as any,
+    abi: EmojiContract.abi,
+    functionName: 'mint',
+    args: [{
+      stringData: '🌲',
+      targetAddress: ethers.constants.AddressZero,
+      x: props.coord?.[0] || 0,
+      y: props.coord?.[1] || 0,
+      tokenURI: '',
+    }],
+  });
+  const wr = useContractWrite(config);
+
+  if (getNFTByCoordinatesResult.isSuccess) {
+    form.setFieldsValue(DataToNFT(getNFTByCoordinatesResult.data));
     return <Modal
       title={`EMOJI ${DataToNFT(getNFTByCoordinatesResult.data).tokenId}  [${props.coord?.[0]}, ${props.coord?.[1]}]`}
       open={props.open}
       okText="Mint"
       footer={formDisabled() ? null : undefined}
       onOk={() => {
-        console.log(DataToNFT(getNFTByCoordinatesResult.data));
+        wr.write?.();
       }}
       onCancel={props.onCancel}>
       <Row justify="space-between">
@@ -86,5 +102,6 @@ function EmojiModal(props: {
         </Col>
       </Row>
     </Modal>;
+  }
   return <></>;
 }
