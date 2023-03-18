@@ -92,10 +92,10 @@ function View() {
     abi: EmojiContract.abi,
     functionName: 'mint',
     args: [{
-      stringData: '🌳',
+      stringData: '🎄',
       targetAddress: ethers.constants.AddressZero,
-      x: 0,
-      y: 0,
+      x: -3,
+      y: -4,
       tokenURI: '',
     }],
   });
