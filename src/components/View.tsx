@@ -61,11 +61,6 @@ function View() {
     };
   }, [moveUp, moveDown, moveLeft, moveRight]);
 
-  const contract = useContract({
-    address: '0x70C38C4279ca77020CB0551465d0783011D869ca',
-    abi: EmojiInterface.abi,
-  });
-
   const { data, isError, isLoading } = useContractRead({
     address: EmojiContract.address as any,
     abi: EmojiContract.abi,
