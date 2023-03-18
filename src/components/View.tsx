@@ -21,7 +21,7 @@ function View() {
 
   useEffect(() => {
     const nfts = Array(11).fill(0)
-      .map(() => Array(17).fill(0).map(() => ({ stringData: '🐶' })));
+      .map(() => Array(17).fill(0).map(() => ({ stringData: '🌳' })));
     setNfts(nfts);
 
     function handleKeyDown(event: KeyboardEvent) {
