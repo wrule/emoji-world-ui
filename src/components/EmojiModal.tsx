@@ -46,15 +46,18 @@ function EmojiModal(props: {
     args: props.coord || [0, 0],
   });
 
+  const formDisabled = () => DataToNFT(getNFTByCoordinatesResult.data).tokenId !== '0';
 
-  return <Modal
-    title={`EMOJI ${123}  [${props.coord?.[0]}, ${props.coord?.[1]}]`}
-    open={props.open}
-    onOk={() => {
-      console.log(DataToNFT(getNFTByCoordinatesResult.data));
-    }}
-    onCancel={props.onCancel}>
-    <Spin spinning={getNFTByCoordinatesResult.isLoading}>
+  if (getNFTByCoordinatesResult.isSuccess)
+    return <Modal
+      title={`EMOJI ${DataToNFT(getNFTByCoordinatesResult.data).tokenId}  [${props.coord?.[0]}, ${props.coord?.[1]}]`}
+      open={props.open}
+      okText="Mint"
+      footer={formDisabled() ? null : undefined}
+      onOk={() => {
+        console.log(DataToNFT(getNFTByCoordinatesResult.data));
+      }}
+      onCancel={props.onCancel}>
       <Row justify="space-between">
         <Col span={8}>
           <Emoji
@@ -65,25 +68,29 @@ function EmojiModal(props: {
         <Col span={16}>
           <Form
             layout="vertical"
-            form={form}>
+            form={form}
+            disabled={formDisabled()}>
             <Form.Item label="stringData">
               <Input
                 allowClear
+                value={DataToNFT(getNFTByCoordinatesResult.data).stringData}
               />
             </Form.Item>
             <Form.Item label="targetAddress">
               <Input
                 allowClear
+                value={DataToNFT(getNFTByCoordinatesResult.data).targetAddress}
               />
             </Form.Item>
             <Form.Item label="tokenURI">
               <Input
                 allowClear
+                value={DataToNFT(getNFTByCoordinatesResult.data).tokenURI}
               />
             </Form.Item>
           </Form>
         </Col>
       </Row>
-    </Spin>
-  </Modal>;
+    </Modal>;
+  return <></>;
 }
