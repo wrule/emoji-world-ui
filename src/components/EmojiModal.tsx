@@ -54,7 +54,7 @@ function EmojiModal(props: {
     abi: EmojiContract.abi,
     functionName: 'mint',
     args: [{
-      stringData: '🌲',
+      stringData: '🌳',
       targetAddress: ethers.constants.AddressZero,
       x: props.coord?.[0] || 0,
       y: props.coord?.[1] || 0,
