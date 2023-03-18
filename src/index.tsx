@@ -6,7 +6,29 @@ import reportWebVitals from './reportWebVitals';
 import { WagmiConfig, createClient, configureChains, mainnet, goerli } from 'wagmi';
 import { publicProvider } from 'wagmi/providers/public';
 
-const { provider } = configureChains([goerli], [publicProvider()]);
+import { Chain } from 'wagmi'
+
+export const scroll = {
+  id: 534353,
+  name: 'Scroll Alpha Testnet',
+  network: 'Scroll Alpha Testnet',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'ETH',
+    symbol: 'ETH',
+  },
+  rpcUrls: {
+    public: { http: ['https://alpha-rpc.scroll.io/l2'] },
+    default: { http: ['https://alpha-rpc.scroll.io/l2'] },
+  },
+  blockExplorers: {
+    etherscan: { name: 'ScrollScan', url: 'https://blockscout.scroll.io/' },
+    default: { name: 'ScrollScan', url: 'https://blockscout.scroll.io/' },
+  },
+} as const satisfies Chain;
+
+
+const { provider } = configureChains([scroll], [publicProvider()]);
  
 const client = createClient({
   autoConnect: true,
