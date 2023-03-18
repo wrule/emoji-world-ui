@@ -4,6 +4,9 @@ import { Modal, Form, Input, Row, Col, Spin } from 'antd';
 import { Emoji } from './Emoji';
 import { ethers } from 'ethers';
 import EmojiInterface from '../contract/Emoji/interface.json';
+import data from '@emoji-mart/data';
+import Picker from '@emoji-mart/react';
+import { EmojiSelector } from './EmojiSelector';
 
 const EmojiContract = {
   address: '0x70C38C4279ca77020CB0551465d0783011D869ca',
@@ -87,7 +90,9 @@ function EmojiModal(props: {
             form={form}
             disabled={formDisabled()}>
             <Form.Item label="stringData" name="stringData">
-              <Input allowClear />
+              {/* <Input allowClear /> */}
+              {/* <Picker data={data} onEmojiSelect={console.log} /> */}
+              <EmojiSelector />
             </Form.Item>
             <Form.Item label="targetAddress" name="targetAddress">
               <Input allowClear />
