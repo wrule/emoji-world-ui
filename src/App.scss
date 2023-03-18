@@ -41,3 +41,24 @@
 .row {
   display: flex;
 }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 20px;
+  .logo {
+    color: white;
+    font-size: 28px;
+  }
+}
+
+.layout {
+  height: 100%;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
