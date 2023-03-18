@@ -5,6 +5,7 @@ import { useContract, useContractRead, usePrepareContractWrite, useContractWrite
 import EmojiInterface from '../contract/Emoji/interface.json';
 import { Button } from 'antd';
 import { ethers } from 'ethers';
+import { EmojiModal } from './EmojiModal';
 
 const EmojiContract = {
   address: '0x70C38C4279ca77020CB0551465d0783011D869ca',
@@ -101,9 +102,14 @@ function View() {
   });
   const wr = useContractWrite(config);
 
+  const [coord, setCoord] = useState<[number, number] | null>(null);
+
   return <div className={style.com}>
-    {nfts().map((row) => <div className={style.row}>
-      {row.map((nft) => <Emoji { ...nft } />)}
+    {nfts().map((row, y) => <div className={style.row}>
+      {row.map((nft, x) => <Emoji { ...nft } onClick={() => {
+        console.log(x, y);
+        setCoord([x, y]);
+      }} />)}
     </div>)}
     {/* <p>
     <span>{currentArea().join(',')}</span>
@@ -122,5 +128,10 @@ function View() {
         wr.write?.();
       }}>Mint</Button>
     </p> */}
+    <EmojiModal
+      open={!!coord}
+      coord={coord}
+      onCancel={() => setCoord(null)}
+    />
   </div>;
 }
