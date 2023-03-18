@@ -70,24 +70,18 @@ function EmojiModal(props: {
             layout="vertical"
             form={form}
             disabled={formDisabled()}>
-            <Form.Item label="stringData">
-              <Input
-                allowClear
-                value={DataToNFT(getNFTByCoordinatesResult.data).stringData}
-              />
+            <Form.Item label="stringData" name="stringData">
+              <Input allowClear />
             </Form.Item>
-            <Form.Item label="targetAddress">
-              <Input
-                allowClear
-                value={DataToNFT(getNFTByCoordinatesResult.data).targetAddress}
-              />
+            <Form.Item label="targetAddress" name="targetAddress">
+              <Input allowClear />
             </Form.Item>
-            <Form.Item label="tokenURI">
+            {/* <Form.Item label="tokenURI">
               <Input
                 allowClear
                 value={DataToNFT(getNFTByCoordinatesResult.data).tokenURI}
               />
-            </Form.Item>
+            </Form.Item> */}
           </Form>
         </Col>
       </Row>
