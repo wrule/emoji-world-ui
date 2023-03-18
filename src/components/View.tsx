@@ -105,10 +105,10 @@ function View() {
   const [coord, setCoord] = useState<[number, number] | null>(null);
 
   return <div className={style.com}>
-    {nfts().map((row, y) => <div className={style.row}>
-      {row.map((nft, x) => <Emoji { ...nft } onClick={() => {
-        console.log(x, y);
-        setCoord([x, y]);
+    {nfts().map((row) => <div className={style.row}>
+      {row.map((nft) => <Emoji { ...nft } onClick={() => {
+        console.log(nft);
+        setCoord([nft.x, nft.y]);
       }} />)}
     </div>)}
     {/* <p>
