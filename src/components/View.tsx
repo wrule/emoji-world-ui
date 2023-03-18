@@ -4,6 +4,7 @@ import style from './View.module.scss';
 import { useContract, useContractRead, usePrepareContractWrite, useContractWrite } from 'wagmi';
 import EmojiInterface from '../contract/Emoji/interface.json';
 import { Button } from 'antd';
+import { ethers } from 'ethers';
 
 const EmojiContract = {
   address: '0x70C38C4279ca77020CB0551465d0783011D869ca',
@@ -86,19 +87,19 @@ function View() {
   };
 
 
-  // const { config } = usePrepareContractWrite({
-  //   address: EmojiContract.address as any,
-  //   abi: EmojiContract.abi,
-  //   functionName: 'mint',
-  //   args: [{
-  //     stringData: '🌳',
-  //     targetAddress: '',
-  //     x: 0,
-  //     y: 0,
-  //     tokenURI: '',
-  //   }],
-  // });
-  // const wr = useContractWrite(config);
+  const { config } = usePrepareContractWrite({
+    address: EmojiContract.address as any,
+    abi: EmojiContract.abi,
+    functionName: 'mint',
+    args: [{
+      stringData: '🌳',
+      targetAddress: ethers.constants.AddressZero,
+      x: 0,
+      y: 0,
+      tokenURI: '',
+    }],
+  });
+  const wr = useContractWrite(config);
 
   return <div className={style.com}>
     {nfts().map((row) => <div className={style.row}>
@@ -118,8 +119,8 @@ function View() {
     </p> */}
     <p>
       <Button onClick={async () => {
-        // wr.write?.();
-        console.log(nfts());
+        wr.write?.();
+        // console.log(nfts());
       }}>Mint</Button>
     </p>
   </div>;
