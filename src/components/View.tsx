@@ -27,9 +27,9 @@ function View() {
   const [nfts, setNfts] = useState<INFT[][]>([]);
 
   useEffect(() => {
-    const nfts = Array(11).fill(0)
-      .map(() => Array(17).fill(0).map(() => ({ stringData: '🌳' })));
-    setNfts(nfts);
+    // const nfts = Array(11).fill(0)
+    //   .map(() => Array(17).fill(0).map(() => ({ stringData: '🌳' })));
+    // setNfts(nfts);
 
     function handleKeyDown(event: KeyboardEvent) {
       switch (event.key) {

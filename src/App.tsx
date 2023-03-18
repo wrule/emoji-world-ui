@@ -16,7 +16,7 @@ function App() {
       <Connector />
     </Header>
     <Content className="content">
-      <View />
+      {/* <View /> */}
     </Content>
   </Layout>;
 }
