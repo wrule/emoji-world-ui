@@ -105,23 +105,22 @@ function View() {
     {nfts().map((row) => <div className={style.row}>
       {row.map((nft) => <Emoji { ...nft } />)}
     </div>)}
-    <p>
+    {/* <p>
     <span>{currentArea().join(',')}</span>
     </p>
     <p>
     <span>{data as any}</span>
     </p>
     <p>
-      {/* {JSON.stringify(a?.data)} */}
-    </p>
+      {JSON.stringify(a?.data)}
+    </p> */}
     {/* <p>
       {JSON.stringify(wr?.data)}
     </p> */}
-    <p>
+    {/* <p>
       <Button onClick={async () => {
         wr.write?.();
-        // console.log(nfts());
       }}>Mint</Button>
-    </p>
+    </p> */}
   </div>;
 }
