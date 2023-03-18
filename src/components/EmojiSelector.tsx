@@ -5,17 +5,31 @@ import Picker from '@emoji-mart/react';
 import style from './EmojiSelector.module.scss';
 
 export
-function EmojiSelector() {
-  const [emoji, setEmoji] = useState<string>('');
+interface IProps {
+  value?: string;
+  onChange?: (value: string) => void;
+}
+
+export
+function EmojiSelector(props: IProps) {
+  const [emoji, setEmoji] = useState<string>(props.value || '🌲');
+
+  const updateEmoji = (value: string) => {
+    setEmoji(value);
+    props.onChange?.(value);
+  };
 
   return <Popover
     overlayClassName={style.com}
     placement="right"
-    content={<Picker data={data} onEmojiSelect={(emojiData: any) => setEmoji(emojiData.native)} />}>
+    content={<Picker
+      data={data}
+      onEmojiSelect={(emojiData: any) => updateEmoji(emojiData.native)}
+    />}>
     <Input
       value={emoji}
       placeholder="Please select or enter Emoji"
-      onChange={(e) => setEmoji(e.target.value)}
+      onChange={(e) => updateEmoji(e.target.value)}
     />
   </Popover>;
 }
