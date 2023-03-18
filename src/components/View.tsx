@@ -73,6 +73,7 @@ function View() {
     abi: EmojiContract.abi,
     functionName: 'getNFTsInRectangle',
     args: currentArea(),
+    keepPreviousData: true,
   });
 
   const nfts = () => {
