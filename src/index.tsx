@@ -28,7 +28,7 @@ export const scroll = {
 } as const satisfies Chain;
 
 
-const { provider } = configureChains([scroll], [publicProvider()]);
+const { provider } = configureChains([zkSyncTestnet], [publicProvider()]);
  
 const client = createClient({
   autoConnect: true,
