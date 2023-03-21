@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Emoji, INFT } from './Emoji';
 import style from './View.module.scss';
 import { useContract, useContractRead, usePrepareContractWrite, useContractWrite } from 'wagmi';
-import EmojiInterface from '../contract/Emoji/interface.json';
-import { Button } from 'antd';
 import { ethers } from 'ethers';
 import { EmojiModal } from './EmojiModal';
-
-const EmojiContract = {
-  address: '0x70C38C4279ca77020CB0551465d0783011D869ca',
-  abi: EmojiInterface.abi,
-};
+import { EmojiContract } from '../contract/Emoji';
+import { Emoji } from './Emoji';
 
 export
 function View() {
@@ -64,15 +58,13 @@ function View() {
   }, [moveUp, moveDown, moveLeft, moveRight]);
 
   const { data, isError, isLoading } = useContractRead({
-    address: EmojiContract.address as any,
-    abi: EmojiContract.abi,
+
     functionName: 'name',
     keepPreviousData: true,
   });
 
   const getNFTsInRectangleResult = useContractRead({
-    address: EmojiContract.address as any,
-    abi: EmojiContract.abi,
+    ...EmojiContract,
     functionName: 'getNFTsInRectangle',
     args: currentArea(),
     keepPreviousData: true,
@@ -89,8 +81,7 @@ function View() {
 
 
   const { config } = usePrepareContractWrite({
-    address: EmojiContract.address as any,
-    abi: EmojiContract.abi,
+    ...EmojiContract,
     functionName: 'mint',
     args: [{
       stringData: '🎄',

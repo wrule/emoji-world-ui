@@ -3,15 +3,8 @@ import { useContractRead, usePrepareContractWrite, useContractWrite } from 'wagm
 import { Modal, Form, Input, Row, Col, Spin } from 'antd';
 import { Emoji } from './Emoji';
 import { ethers } from 'ethers';
-import EmojiInterface from '../contract/Emoji/interface.json';
-import data from '@emoji-mart/data';
-import Picker from '@emoji-mart/react';
 import { EmojiSelector } from './EmojiSelector';
-
-const EmojiContract = {
-  address: '0x70C38C4279ca77020CB0551465d0783011D869ca',
-  abi: EmojiInterface.abi,
-};
+import { EmojiContract } from '../contract/Emoji';
 
 export
 interface NFT {
@@ -43,8 +36,7 @@ function EmojiModal(props: {
 }) {
   const [emoji, setEmoji] = useState<string>('');
   const getNFTByCoordinatesResult = useContractRead({
-    address: EmojiContract.address as any,
-    abi: EmojiContract.abi,
+    ...EmojiContract,
     functionName: 'getNFTByCoordinates',
     args: props.coord || [0, 0],
   });
