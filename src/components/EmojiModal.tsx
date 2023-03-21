@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useContractRead, usePrepareContractWrite, useContractWrite } from 'wagmi';
 import { Modal, Form, Input, Row, Col, Spin } from 'antd';
 import { Emoji } from './Emoji';
@@ -41,15 +41,13 @@ function EmojiModal(props: {
   coord: [number, number] | null | undefined,
   onCancel?: () => void,
 }) {
-  const [form] = Form.useForm<NFT>();
-
+  const [emoji, setEmoji] = useState<string>('');
   const getNFTByCoordinatesResult = useContractRead({
     address: EmojiContract.address as any,
     abi: EmojiContract.abi,
     functionName: 'getNFTByCoordinates',
     args: props.coord || [0, 0],
   });
-
   const formDisabled = () => DataToNFT(getNFTByCoordinatesResult.data).tokenId !== '0';
 
   const { config } = usePrepareContractWrite({
@@ -57,7 +55,7 @@ function EmojiModal(props: {
     abi: EmojiContract.abi,
     functionName: 'mint',
     args: [{
-      stringData: '🌳',
+      stringData: emoji,
       targetAddress: ethers.constants.AddressZero,
       x: props.coord?.[0] || 0,
       y: props.coord?.[1] || 0,
@@ -67,7 +65,6 @@ function EmojiModal(props: {
   const wr = useContractWrite(config);
 
   if (getNFTByCoordinatesResult.isSuccess) {
-    form.setFieldsValue(DataToNFT(getNFTByCoordinatesResult.data));
     return <Modal
       title={`EMOJI ${DataToNFT(getNFTByCoordinatesResult.data).tokenId}  [${props.coord?.[0]}, ${props.coord?.[1]}]`}
       open={props.open}
@@ -79,30 +76,15 @@ function EmojiModal(props: {
       onCancel={props.onCancel}>
       <Row justify="space-between">
         <Col span={8}>
-          <Emoji
-            size={128}
-            stringData={(getNFTByCoordinatesResult.data as any)?.['stringData']}
-          />
+          <Emoji size={128} stringData={emoji} />
         </Col>
         <Col span={16}>
           <Form
             layout="vertical"
-            form={form}
             disabled={formDisabled()}>
-            <Form.Item label="stringData" name="stringData">
-              {/* <Input allowClear /> */}
-              {/* <Picker data={data} onEmojiSelect={console.log} /> */}
-              <EmojiSelector />
+            <Form.Item label="Emoji" name="stringData">
+              <EmojiSelector value={emoji} onChange={setEmoji} />
             </Form.Item>
-            <Form.Item label="targetAddress" name="targetAddress">
-              <Input allowClear />
-            </Form.Item>
-            {/* <Form.Item label="tokenURI">
-              <Input
-                allowClear
-                value={DataToNFT(getNFTByCoordinatesResult.data).tokenURI}
-              />
-            </Form.Item> */}
           </Form>
         </Col>
       </Row>
