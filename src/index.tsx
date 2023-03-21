@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { WagmiConfig, createClient, configureChains, Chain } from 'wagmi';
 import { publicProvider } from 'wagmi/providers/public';
 
-import { zkSyncTestnet } from 'wagmi/chains';
+// import { zkSyncTestnet } from 'wagmi/chains';
 
 export const scroll = {
   id: 534353,

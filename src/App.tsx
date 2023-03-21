@@ -1,4 +1,4 @@
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css';
 import './App.scss';
 import { View } from './components/View';
 import { Layout } from 'antd';
