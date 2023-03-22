@@ -3,33 +3,13 @@ import ReactDOM from 'react-dom/client';
 import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { WagmiConfig, createClient, configureChains, Chain } from 'wagmi';
+import { WagmiConfig, createClient, configureChains } from 'wagmi';
 import { publicProvider } from 'wagmi/providers/public';
-
+import { scrollAlphaTestnet } from './chains/scrollAlphaTestnet';
 // import { zkSyncTestnet } from 'wagmi/chains';
 
-export const scroll = {
-  id: 534353,
-  name: 'Scroll Alpha Testnet',
-  network: 'Scroll Alpha Testnet',
-  nativeCurrency: {
-    decimals: 18,
-    name: 'ETH',
-    symbol: 'ETH',
-  },
-  rpcUrls: {
-    public: { http: ['https://alpha-rpc.scroll.io/l2'] },
-    default: { http: ['https://alpha-rpc.scroll.io/l2'] },
-  },
-  blockExplorers: {
-    etherscan: { name: 'ScrollScan', url: 'https://blockscout.scroll.io/' },
-    default: { name: 'ScrollScan', url: 'https://blockscout.scroll.io/' },
-  },
-} as const satisfies Chain;
+const { provider } = configureChains([scrollAlphaTestnet], [publicProvider()]);
 
-
-const { provider } = configureChains([scroll], [publicProvider()]);
- 
 const client = createClient({
   autoConnect: true,
   provider,
