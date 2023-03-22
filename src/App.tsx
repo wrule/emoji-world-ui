@@ -3,6 +3,7 @@ import './App.scss';
 import { View } from './components/View';
 import { Layout } from 'antd';
 import { Connector } from './Connector';
+import { Test } from './Test';
 const { Header, Content } = Layout;
 
 function App() {
@@ -12,7 +13,8 @@ function App() {
       <Connector />
     </Header>
     <Content className="content">
-      <View />
+      {/* <View /> */}
+      <Test />
     </Content>
   </Layout>;
 }

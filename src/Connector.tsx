@@ -16,6 +16,6 @@ function Connector() {
     },
   });
   if (isConnecting) return <Button>Connecting...</Button>;
-  if (isDisconnected) return <Button onClick={() => disconnect()}>Disconnect</Button>;
+  if (isDisconnected) return <Button onClick={() => disconnect()}>{address}</Button>;
   return <Button type="primary" onClick={() => connect()}>Connect</Button>;
 }
