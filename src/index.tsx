@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { WagmiConfig, createClient, configureChains } from 'wagmi';
 import { publicProvider } from 'wagmi/providers/public';
+import { ConnectKitProvider, ConnectKitButton, getDefaultClient } from 'connectkit';
 import { scrollAlphaTestnet } from './chains/scrollAlphaTestnet';
 // import { zkSyncTestnet } from 'wagmi/chains';
 
@@ -21,7 +22,10 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <WagmiConfig client={client}>
-      <App />
+      <ConnectKitProvider>
+        <ConnectKitButton />
+        {/* <App /> */}
+      </ConnectKitProvider>
     </WagmiConfig>
   </React.StrictMode>
 );
