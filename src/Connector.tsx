@@ -4,39 +4,18 @@ import { Button, Popover, message } from 'antd';
 import { useEffect } from 'react';
 
 export
-function Balance(props: { address: string }) {
-  const { data, isError, isLoading } = useBalance({ address: props.address as any });
-  if (isLoading) return <span>Fetching balance...</span>;
-  if (isError) return <span>Error fetching balance</span>;
-  return <span>{data?.formatted} {data?.symbol}</span>;
-}
-
-export
 function Connector() {
-  const { address } = useAccount();
-  const { connect } = useConnect({
-    connector: new InjectedConnector(),
-  });
+  const { connect, connectors, error, isLoading, pendingConnector } = useConnect();
   const { disconnect } = useDisconnect();
-
-  useEffect(() => {
-    if (address) {
-      message.success('Successfully connected');
-    } else {
-      message.info('Disconnected');
-    }
-  }, [address]);
-
-  if (address) {
-    return <Popover
-      placement="bottom"
-      title="Connected address"
-      content={<div>
-        <div>{address}</div>
-        <div><Balance address={address} /></div>
-      </div>}>
-      <Button onClick={() => disconnect()}>Disconnect</Button>
-    </Popover>;
-  }
-  return <Button type="primary" onClick={() => connect()}>Connect Wallet</Button>;
+  const { address, isConnecting, isDisconnected } = useAccount({
+    onConnect: () => {
+      message.success('Connected');
+    },
+    onDisconnect: () => {
+      message.error('Disconnected');
+    },
+  });
+  if (isConnecting) return <Button>Connecting...</Button>;
+  if (isDisconnected) return <Button onClick={() => disconnect()}>Disconnect</Button>;
+  return <Button type="primary" onClick={() => connect()}>Connect</Button>;
 }
